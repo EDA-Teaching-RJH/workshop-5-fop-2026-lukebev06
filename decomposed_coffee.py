@@ -1,15 +1,18 @@
-amount_due = int(input("how much is the coffee (too the nearest 5p)? "))
-valid_coin = [50,20,10,5]
-current = 0
 
+valid_coin = [50,20,10,5]
 
 def main():
+ change = 0
  amount_due = 75
- while amount_due > 0:
-    coin = (get_coin())
-    amount_due = update_total(amount_due, coin, current)
-    dispense_product(amount_due)
+ current = 0
 
+ while amount_due > 0:
+    coin = get_coin()
+    coin = int(coin)
+    amount_due = update_total(amount_due, coin, change)
+    dispense_product(amount_due)
+ if change >0 :
+    print(f"{change}p change")
 def get_coin():
     
     try:
@@ -21,17 +24,17 @@ def get_coin():
     except ValueError:
         print("invalid input. ")
 
-def update_total(amount_due, coin, current):
-    total_inserted = current + coin
+def update_total(amount_due, coin, change):
+    
     amount_due = amount_due - coin
+    change = -amount_due
     return amount_due
 
 
 def dispense_product(total_inserted):
     
-    if total_inserted >= amount_due : 
-        print(f"{total_inserted}p is left")
-        change = -amount_due
-        print(f"{change}p change")
+    print(f"{total_inserted}p is left")
+    
+
 main()
 
